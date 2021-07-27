@@ -1,2 +1,2 @@
-# andersen-exam-golang-infrastructure
-iac for exam golang app
+# andersen-exam-python-infrastructure
+here source code of infrastructure 
