@@ -9,16 +9,16 @@ resource "aws_lb" "web" {
 
 
 resource "aws_lb_target_group" "lb_target_group" {
-  name        = "${var.prefix}target-group-golang"
+  name        = "${var.prefix}tg-golang"
   port        = "80"
   protocol    = "HTTP"
   target_type = "instance"
   vpc_id      = aws_vpc.vpc.id
   health_check {
     path                = "/"
-    healthy_threshold   = 2
-    unhealthy_threshold = 3
-    timeout             = 2
+    healthy_threshold   = 3
+    unhealthy_threshold = 10
+    timeout             = 3
     interval            = 5
     matcher             = "200,301,302"
   }

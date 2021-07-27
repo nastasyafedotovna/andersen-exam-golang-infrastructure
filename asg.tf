@@ -39,7 +39,7 @@ resource "aws_launch_configuration" "lc" {
   iam_instance_profile = aws_iam_instance_profile.ecs_service_role.name
   key_name             = aws_key_pair.generated_key.key_name
   security_groups      = [aws_security_group.web.id]
-  user_data = <<EOF
+  user_data            = <<EOF
 #! /bin/bash
 sudo apt-get update
 sudo echo "ECS_CLUSTER=${var.cluster_name}" >> /etc/ecs/ecs.config
@@ -48,12 +48,12 @@ EOF
 
 resource "aws_autoscaling_group" "asg" {
   name                      = "asg-${aws_launch_configuration.lc.name}"
-  launch_configuration      = "${aws_launch_configuration.lc.name}"
+  launch_configuration      = aws_launch_configuration.lc.name
   min_size                  = 2
   max_size                  = 8
   desired_capacity          = 4
   health_check_type         = "ELB"
-  health_check_grace_period = 5
+  health_check_grace_period = 15
   vpc_zone_identifier       = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
 
   target_group_arns     = [aws_lb_target_group.lb_target_group.arn]
