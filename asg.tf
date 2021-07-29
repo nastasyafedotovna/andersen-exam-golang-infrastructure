@@ -49,9 +49,9 @@ EOF
 resource "aws_autoscaling_group" "asg" {
   name                      = "asg-${aws_launch_configuration.lc.name}"
   launch_configuration      = aws_launch_configuration.lc.name
-  min_size                  = 2
+  min_size                  = 0
   max_size                  = 6
-  desired_capacity          = 2
+  desired_capacity          = 0
   health_check_type         = "ELB"
   health_check_grace_period = 15
   vpc_zone_identifier       = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
